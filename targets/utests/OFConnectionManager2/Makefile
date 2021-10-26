@@ -21,7 +21,7 @@ include ../../../init.mk
 MODULE := OFConnectionManager2_utest
 TEST_MODULE := OFConnectionManager2
 
-DEPENDMODULES := AIM SocketManager indigo loci BigList cjson Configuration debug_counter timer_wheel BigRing OS histogram cjson_util
+DEPENDMODULES := AIM SocketManager indigo loci BigList cjson Configuration debug_counter timer_wheel BigRing histogram cjson_util
 
 # These indicate Linux specific implementations to be used for
 # various features
@@ -38,6 +38,6 @@ GLOBAL_CFLAGS += -DUNIT_TEST
 
 DEPENDMODULE_HEADERS := IOF
 
-GLOBAL_LINK_LIBS += -lm -lcrypto -lssl
+GLOBAL_LINK_LIBS += -lm -lcrypto -lssl -lpthread
 
 include $(BUILDER)/build-unit-test.mk

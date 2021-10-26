@@ -6,6 +6,9 @@ Core OpenFlow agent and infrastructure modules
 Overview
 ========
 
+Update October 2021: this repository is forked from floodlight/indigo.
+It is closed for better tracking/control of branches.
+
 Indigo is an open source project to support OpenFlow on a range of physical
 and now virtual switch platforms.  The original version of Indigo was
 based on the Stanford reference implementation of an OpenFlow virtual
@@ -13,7 +16,7 @@ switch.  This release represents a complete rearchitecture with a
 continued focus on native support for hardware switching platforms and
 better support for a variety of virtual switching environments.
 
-This repository is available at https://github.com/floodlight/indigo.git.
+This repository is available at https://github.com/bigswitch/indigo.git.
 It provides:
 
 * The Indigo-2 architecture header files
@@ -79,7 +82,7 @@ Tracking Issues
 
 Issues are currently tracked in the github repository tracking facility.
 Please select the Issues tab at the repository web site:
-https://github.com/floodlight/indigo
+https://github.com/bigswitch/indigo
 
 
 Contributions
@@ -123,7 +126,7 @@ Architectural Overview
 ======================
 
 The Indigo architecture uses Loci, the C output of LoxiGen (available at
-https://github.com/floodlight/loxigen.git).  That library provides a set
+https://github.com/bigswitch/loxigen.git).  That library provides a set
 of interfaces for working with OpenFlow objects.  In general, Loci
 definitions are prefixed with `of_`.  The Loci files are included in the
 indigo distribution, though they can be updated using LoxiGen directly.
