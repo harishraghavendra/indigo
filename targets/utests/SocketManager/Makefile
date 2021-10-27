@@ -21,7 +21,7 @@ include ../../../init.mk
 MODULE := SocketManager_utest
 TEST_MODULE := SocketManager
 
-DEPENDMODULES := AIM OS loci indigo BigList cjson Configuration timer_wheel debug_counter histogram cjson_util
+DEPENDMODULES := AIM loci indigo BigList cjson Configuration timer_wheel debug_counter histogram cjson_util
 
 # These indicate Linux specific implementations to be used for
 # various features
@@ -36,6 +36,6 @@ GLOBAL_CFLAGS += -DSOCKETMANAGER_CONFIG_INCLUDE_UCLI=0
 
 DEPENDMODULE_HEADERS := IOF
 
-GLOBAL_LINK_LIBS += -lm
+GLOBAL_LINK_LIBS += -lm -lpthread
 
 include $(BUILDER)/build-unit-test.mk
