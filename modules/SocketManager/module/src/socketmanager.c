@@ -383,6 +383,14 @@ ind_soc_run_status_set(ind_soc_run_status_t s)
     }
 }
 
+bool
+ind_soc_run_is_exiting(void)
+{
+    if (ind_soc_run_status__ == IND_SOC_RUN_STATUS_EXIT) {
+        return true;
+    }
+    return false;
+}
 
 /*
  * Return the time in ms until the next timer could fire
@@ -464,7 +472,8 @@ process_timers(ind_soc_priority_t priority)
 
         list_remove(&timer->ready_links);
 
-        if (timer->priority != priority) {
+        if ((ind_soc_run_status__ == IND_SOC_RUN_STATUS_EXIT) ||
+            (timer->priority != priority)) {
             /* Not processing this priority, add it back to the ready list */
             list_push(&ready_timers, &timer->ready_links);
             continue;
@@ -746,6 +755,10 @@ after_callback(void)
 int
 ind_soc_should_yield(void)
 {
+    if (ind_soc_run_status__ == IND_SOC_RUN_STATUS_EXIT) {
+        return true;
+    }
+
     indigo_time_t elapsed =
         INDIGO_TIME_DIFF_ms(callback_start_time, INDIGO_CURRENT_TIME);
     return elapsed >= SOCKETMANAGER_CONFIG_TIMESLICE_MS;
@@ -795,9 +808,11 @@ process_tasks(ind_soc_priority_t priority)
     struct list_links *cur, *next;
     LIST_FOREACH_SAFE(&tasks, cur, next) {
         ind_soc_task_t *task = container_of(cur, links, ind_soc_task_t);
-        if (task->priority < priority) {
+        if ((ind_soc_run_status__ == IND_SOC_RUN_STATUS_EXIT) ||
+            (task->priority < priority)) {
             break;
         }
+
         before_callback();
         if (task->callback(task->cookie) == IND_SOC_TASK_FINISHED) {
             list_remove(&task->links);
@@ -899,7 +914,7 @@ ind_soc_select_and_run(int run_for_ms)
         process_tasks(priority);
 
         if (ind_soc_run_status__ == IND_SOC_RUN_STATUS_EXIT) {
-            AIM_LOG_TRACE("ind_soc_run_status__ = IND_SOC_RUN_STATUS_EXIT exiting");
+            AIM_LOG_INFO("ind_soc_run_status__ = IND_SOC_RUN_STATUS_EXIT exiting");
             return INDIGO_ERROR_NONE;
         }
 
