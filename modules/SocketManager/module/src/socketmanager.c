@@ -369,7 +369,7 @@ ind_soc_socket_unregister(int socket_id)
 
 
 static ind_soc_run_status_t ind_soc_run_status__;
-#define IND_SOC_RUN_IS_EXISTING()     (ind_soc_run_status__ == IND_SOC_RUN_STATUS_EXIT)
+#define IND_SOC_RUN_IS_EXITING()     (ind_soc_run_status__ == IND_SOC_RUN_STATUS_EXIT)
 
 /*
  * NOTE: using this api to exit ind_soc_select_and_run may not always result in
@@ -387,7 +387,7 @@ ind_soc_run_status_set(ind_soc_run_status_t s)
 bool
 ind_soc_run_is_exiting(void)
 {
-    if (IND_SOC_RUN_IS_EXISTING()) {
+    if (IND_SOC_RUN_IS_EXITING()) {
         return true;
     }
     return false;
@@ -473,7 +473,7 @@ process_timers(ind_soc_priority_t priority)
 
         list_remove(&timer->ready_links);
 
-        if (IND_SOC_RUN_IS_EXISTING() || (timer->priority != priority)) {
+        if (IND_SOC_RUN_IS_EXITING() || (timer->priority != priority)) {
             /* Not processing this priority, add it back to the ready list */
             list_push(&ready_timers, &timer->ready_links);
             continue;
@@ -755,7 +755,7 @@ after_callback(void)
 int
 ind_soc_should_yield(void)
 {
-    if (IND_SOC_RUN_IS_EXISTING()) {
+    if (IND_SOC_RUN_IS_EXITING()) {
         return true;
     }
 
@@ -775,7 +775,7 @@ process_sockets(ind_soc_priority_t priority)
         struct pollfd *pfd = &pollfds[i];
         int read_ready, write_ready, error_seen;
 
-        if (IND_SOC_RUN_IS_EXISTING()) {
+        if (IND_SOC_RUN_IS_EXITING()) {
             break;
         }
 
@@ -808,7 +808,7 @@ process_tasks(ind_soc_priority_t priority)
     struct list_links *cur, *next;
     LIST_FOREACH_SAFE(&tasks, cur, next) {
         ind_soc_task_t *task = container_of(cur, links, ind_soc_task_t);
-        if (IND_SOC_RUN_IS_EXISTING() || (task->priority < priority)) {
+        if (IND_SOC_RUN_IS_EXITING() || (task->priority < priority)) {
             break;
         }
 
@@ -912,7 +912,7 @@ ind_soc_select_and_run(int run_for_ms)
         process_timers(priority);
         process_tasks(priority);
 
-        if (IND_SOC_RUN_IS_EXISTING()) {
+        if (IND_SOC_RUN_IS_EXITING()) {
             AIM_LOG_INFO("ind_soc_run_status__ = IND_SOC_RUN_STATUS_EXIT exiting");
             return INDIGO_ERROR_NONE;
         }
