@@ -344,6 +344,14 @@ extern indigo_error_t ind_soc_select_and_run(int run_for_ms);
 extern void ind_soc_run_status_set(ind_soc_run_status_t status);
 
 /**
+ * Returns true if run status has been marked as IND_SOC_RUN_STATUS_EXIT;
+ * otherwise false.
+ * To be called by other modules if those modules should gracefully exit
+ * when ind_soc_select_and_run() exits
+ */
+extern bool ind_soc_run_is_exiting(void);
+
+/**
  * Check whether the current callback should yield
  *
  * This function will return true if too much time has passed
