@@ -49,6 +49,8 @@
     ERROR(BAD_ACTION,     -18, "Bad action") \
     ERROR(BAD_TABLE_ID,   -19, "Bad table id") \
     ERROR(TABLE_FULL,     -20, "Table full") \
+    ERROR(UNHEALTHY,      -21, "Agent functionality impaired") \
+    ERROR(INTERNAL,       -22, "Agent internal error") \
 
 typedef enum indigo_error_e {
 #define ERROR(name, value, description) INDIGO_ERROR_##name = value,
