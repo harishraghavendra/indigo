@@ -147,6 +147,25 @@ typedef struct indigo_fi_port_stats {
     uint64_t tx_pfc_frame_priority_5;
     uint64_t tx_pfc_frame_priority_6;
     uint64_t tx_pfc_frame_priority_7;
+    uint64_t rx_packets_drop_mcast_l2_l3;
+    uint64_t rx_packets_drop_ip_v4_v6;
+    uint64_t rx_packets_drop_ip_hdr_err;
+    uint64_t rx_packets_drop_policy_discard;
+    uint64_t rx_packets_drop_fp;
+    uint64_t rx_packets_drop_port_bitmap_zero;
+    uint64_t rx_packets_drop_tunnel_error;
+    uint64_t rx_packets_drop_ibp_discard_cbp_full;
+    uint64_t rx_packets_drop_port_not_forward;
+    uint64_t rx_packets_drop_mtu_error;
+    uint64_t rx_packets_drop_mac_limit;
+    uint64_t tx_packets_drop_any;
+    uint64_t tx_packets_drop_ipmc_v4_v6;
+    uint64_t tx_packets_drop_ip_v4_v6;
+    uint64_t tx_packets_drop_tunnel_error;
+    uint64_t tx_packets_drop_ttl_threshold;
+    uint64_t tx_packets_drop_vlan_vxlt;
+    uint64_t tx_packets_drop_l2_mc;
+    uint64_t tx_packets_drop_aged;
 } indigo_fi_port_stats_t;
 
 #endif /* _INDIGO_FI_H_ */
