@@ -230,6 +230,26 @@ ind_core_bsn_port_counter_stats_entry_populate(of_bsn_port_counter_stats_entry_t
     append_uint64(&values, stats.tx_pfc_frame_priority_5);
     append_uint64(&values, stats.tx_pfc_frame_priority_6);
     append_uint64(&values, stats.tx_pfc_frame_priority_7);
+
+    append_uint64(&values, stats.rx_packets_drop_mcast_l2_l3);
+    append_uint64(&values, stats.rx_packets_drop_ip_v4_v6);
+    append_uint64(&values, stats.rx_packets_drop_ip_hdr_err);
+    append_uint64(&values, stats.rx_packets_drop_policy_discard);
+    append_uint64(&values, stats.rx_packets_drop_fp);
+    append_uint64(&values, stats.rx_packets_drop_port_bitmap_zero);
+    append_uint64(&values, stats.rx_packets_drop_tunnel_error);
+    append_uint64(&values, stats.rx_packets_drop_ibp_discard_cbp_full);
+    append_uint64(&values, stats.rx_packets_drop_port_not_forward);
+    append_uint64(&values, stats.rx_packets_drop_mtu_error);
+    append_uint64(&values, stats.rx_packets_drop_mac_limit);
+    append_uint64(&values, stats.tx_packets_drop_any);
+    append_uint64(&values, stats.tx_packets_drop_ipmc_v4_v6);
+    append_uint64(&values, stats.tx_packets_drop_ip_v4_v6);
+    append_uint64(&values, stats.tx_packets_drop_tunnel_error);
+    append_uint64(&values, stats.tx_packets_drop_ttl_threshold);
+    append_uint64(&values, stats.tx_packets_drop_vlan_vxlt);
+    append_uint64(&values, stats.tx_packets_drop_l2_mc);
+    append_uint64(&values, stats.tx_packets_drop_aged);
 }
 
 void
