@@ -273,7 +273,7 @@ gentable_entry_add_resume(
     struct ind_core_gentable_checksum_bucket *checksum_bucket;
 
     if (obj == NULL) {
-        /* should not happen. just return */
+        /* should not happen. just return */ 
         goto done;
     }
 
@@ -410,7 +410,7 @@ ind_core_bsn_gentable_entry_add_handler(
                 /* entry hasn't been allocated yet, wait for resume.
                  * block async op pending */
                 if (priv != NULL) {
-                    AIM_LOG_ERROR("gentable %s return pending. Priv should be NULL",
+                    AIM_LOG_ERROR("gentable %s return pending. Priv should be NULL", 
                                   gentable->name);
                 }
                 /* The following call will notify the connection manager that
@@ -543,9 +543,9 @@ ind_core_bsn_gentable_outstanding_async_ops(aim_pvs_t *pvs)
         of_bsn_gentable_entry_add_table_id_get(op_ctx->obj, &table_id);
         gentable = find_gentable_by_id(table_id);
         aim_printf(pvs, "cxn_id=%d table=%s op=%s time=%"PRIu64"\n",
-                   op_ctx->cxn_id, gentable? gentable->name : "None",
+                   op_ctx->cxn_id, gentable? gentable->name : "None", 
                    (op_ctx->obj->object_id == OF_BSN_GENTABLE_ENTRY_ADD)? "ADD" : "DEL",
-                   INDIGO_TIME_DIFF_ms(op_ctx->entry_time, INDIGO_CURRENT_TIME));
+                   INDIGO_TIME_DIFF_ms(op_ctx->entry_time, INDIGO_CURRENT_TIME)); 
     }
 }
 
@@ -1151,7 +1151,7 @@ delete_entry_gt_update(
 static void
 gentable_entry_del_resume(
     indigo_cxn_id_t cxn_id,
-    of_object_t *obj,
+    of_object_t *obj, 
     of_desc_str_t err_txt,
     indigo_error_t rv)
 {
@@ -1164,7 +1164,7 @@ gentable_entry_del_resume(
         /* incorrect resume call */
         AIM_LOG_ERROR("%s should have valid obj", __FUNCTION__);
         return;
-    }
+    } 
     of_bsn_gentable_entry_delete_table_id_get(obj, &table_id);
     of_bsn_gentable_entry_delete_key_bind(obj, &key);
 
@@ -1197,7 +1197,7 @@ gentable_entry_del_resume(
     } else if (rv < 0) {
         AIM_LOG_ERROR("%s gentable delete failed: %s",
                       gentable->name, indigo_strerror(rv));
-        indigo_cxn_send_bsn_gentable_error(cxn_id, obj,
+        indigo_cxn_send_bsn_gentable_error(cxn_id, obj, 
                                            gentable->table_id,
                                            OF_BSN_GENTABLE_ERROR_UNKNOWN,
                                            err_txt);
@@ -1235,7 +1235,7 @@ delete_entry(indigo_cxn_id_t cxn_id,
         global_op_ctx.no_async = true;
         rv = gentable->ops->del4(cxn_id, gentable->priv, entry->priv, entry->key, err_txt,
                                  (void *) &global_op_ctx);
-    }
+    } 
 
     /* Dont care about the return value. Force to remove it. */
     delete_entry_gt_update(gentable, entry);
