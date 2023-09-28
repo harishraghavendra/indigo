@@ -105,7 +105,7 @@ struct indigo_core_gentable {
     uint16_t table_id;
     uint8_t checksum_buckets_shift; /* see checksum_buckets_shift */
     of_checksum_128_t checksum;
-    of_table_name_t name;
+    char name[OF_MAX_TABLE_NAME_LEN+1];
 };
 
 struct ind_core_gentable_entry {
