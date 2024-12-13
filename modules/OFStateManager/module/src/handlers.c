@@ -606,7 +606,7 @@ ind_core_flow_add_handler(of_object_t *_obj, indigo_cxn_id_t cxn_id)
  * Translate the error status into the correct error code for the given
  * OpenFlow version, and send the error message to the controller.
  *
- * WARNING: we only generate 1.0 and 1.3 errors;
+ * WARNING: we only generate 1.0 and 1.3 errors; 
  * 1.1 and 1.2 errors will be mapped to 1.0 errors.
  *
  * @param indigo_err Error status
@@ -676,13 +676,13 @@ flow_mod_err_msg_send(indigo_error_t indigo_err, of_version_t ver,
         switch (indigo_err) {
         case INDIGO_ERROR_NONE:
             break;
-
+ 
         case INDIGO_ERROR_RESOURCE:  /* fall-through */
         case INDIGO_ERROR_TABLE_FULL:
             code = OF_FLOW_MOD_FAILED_ALL_TABLES_FULL_BY_VERSION(ver);
             errmsgf = 1;
             break;
-
+ 
         case INDIGO_ERROR_NOT_SUPPORTED:    /* fall-through */
         case INDIGO_ERROR_BAD_MATCH:        /* fall-through */
         case INDIGO_ERROR_BAD_INSTRUCTION:  /* fall-through */
@@ -691,13 +691,13 @@ flow_mod_err_msg_send(indigo_error_t indigo_err, of_version_t ver,
             code = OF_FLOW_MOD_FAILED_UNSUPPORTED_BY_VERSION(ver);
             errmsgf = 1;
             break;
-
+ 
         default:
             code = OF_FLOW_MOD_FAILED_EPERM_BY_VERSION(ver);
             errmsgf = 1;
         }
     }
-
+ 
     if (errmsgf) {
         indigo_cxn_send_error_reply(cxn_id, flow_mod, type, code);
     }
